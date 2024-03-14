@@ -1,0 +1,11 @@
+.banner_div {
+  height: 335px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(https://im1.dineout.co.in/images/uploads/misc/2021/Mar/31/oldherobannerwebfinal_bau.jpg);
+}
+
+.banner_search {
+  background-color: white;
+  border-radius: 10px;
+}
