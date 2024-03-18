@@ -1,11 +1,10 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 
 import Grid from "@mui/material/Grid";
+import StyledButton from "./StyledButton";
 
 export default function Cards({ image }) {
   return (
@@ -16,7 +15,7 @@ export default function Cards({ image }) {
             <img src={image} />
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+            <StyledButton size="small" text={"Learn More"}></StyledButton>
           </CardActions>
         </React.Fragment>
       </Card>

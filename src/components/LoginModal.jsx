@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useEffect, useState } from "react";
 import { postLogin, postResgistration } from "../api";
+import StyledButton from "./StyledButton";
 
 export const LoginModal = ({
   open = 0,
@@ -149,8 +150,11 @@ export const LoginModal = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button type="submit">{open === 1 ? `Register` : `Login`}</Button>
+        <StyledButton text={"Cancel"} onClick={handleClose}></StyledButton>
+        <StyledButton
+          text={open === 1 ? `Register` : `Login`}
+          type="submit"
+        ></StyledButton>
       </DialogActions>
     </Dialog>
   );
