@@ -23,3 +23,19 @@ export const postResgistration = ({
     phonenumber,
   });
 };
+
+export const createBooking = ({
+  restaurantId = "",
+  selectedSeat = 0,
+  selectedDate = "",
+  time = "",
+  userId,
+}) => {
+  return axios.post(baseUrlLocal + "/createBooking", {
+    restaurantId,
+    selectedSeat,
+    selectedDate,
+    time,
+    userId,
+  });
+};

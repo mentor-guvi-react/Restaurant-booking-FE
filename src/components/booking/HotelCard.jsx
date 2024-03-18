@@ -79,3 +79,21 @@ export default function HotelCard({ handleClick }) {
     </Grid>
   );
 }
+
+const restaurant = {
+  delhi: [
+    {
+      id: "sdkjnbfsd09234234",
+      name: "Delia My Bar Headquarters",
+      location: "Karol Bagh , Central Delhi",
+      price: "162312",
+      priceDetail: "₹ 1,600 for 2 approx",
+      tags: [`American`, `Bengali`, `5 Star`, `Buffet`],
+      ratings: 5.5,
+      image: "",
+      discount: 30,
+    },
+  ],
+  mumbai: {},
+  chennai: {},
+};

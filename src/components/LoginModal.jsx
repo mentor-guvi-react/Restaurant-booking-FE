@@ -21,8 +21,9 @@ export const LoginModal = ({
     username: "",
   });
 
-  const handleUserLogin = () => {
+  const handleUserLogin = (res = {}) => {
     localStorage.setItem("login", "true");
+    res.username && localStorage.setItem("userId", res.username || "");
     setIsLoggedIn(true);
   };
 
@@ -43,12 +44,12 @@ export const LoginModal = ({
           if (open === 1) {
             const res = await postResgistration(formValue);
             if (res.status === 200) {
-              handleUserLogin();
+              handleUserLogin(res);
             }
           } else if (open === 2) {
             const res = await postLogin(formValue);
             if (res.status === 200) {
-              handleUserLogin();
+              handleUserLogin(res);
             }
           }
         },

@@ -12,19 +12,49 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TimePicker from "./TimePicker";
 import StyledButton from "../StyledButton";
 
-export default function ConfirmBooking({ handleClick, open }) {
-  const [selectedDate, setSelectedDate] = React.useState("");
+export default function ConfirmBooking({
+  handleClick,
+  open,
+  restaurantId = "",
+}) {
+  const [formValue, setFormValue] = React.useState({
+    restaurantId: restaurantId,
+    selectedSeat: 0,
+    selectedDate: "",
+    time: "",
+  });
 
   const handleDateChange = (value) => {
-    console.log(value, "value");
-
     const date = new Date(value).getDate();
     const year = new Date(value).getFullYear();
     const month = new Date(value).getMonth() + 1;
 
     const localData = `${date}-${month}-${year}`;
-    setSelectedDate(localData);
+
+    setFormValue({
+      ...formValue,
+      selectedDate: localData,
+    });
   };
+
+  const handleSubmit = () => {
+    console.log(formValue, "formValue formValue");
+  };
+
+  const handleSliderChange = (event) => {
+    setFormValue({
+      ...formValue,
+      selectedSeat: event.target.value,
+    });
+  };
+
+  const handleClipClick = (time) => {
+    setFormValue({
+      ...formValue,
+      time,
+    });
+  };
+
   return (
     <>
       <Modal
@@ -66,6 +96,7 @@ export default function ConfirmBooking({ handleClick, open }) {
                 marks
                 min={0}
                 max={10}
+                onChange={handleSliderChange}
               />
             </Box>
 
@@ -91,10 +122,10 @@ export default function ConfirmBooking({ handleClick, open }) {
               </DemoContainer>
             </LocalizationProvider>
 
-            <TimePicker />
+            <TimePicker handleClipClick={handleClipClick} />
 
             <Grid item paddingTop={"5%"}>
-              <StyledButton text={"Create Booking"} />
+              <StyledButton onClick={handleSubmit} text={"Create Booking"} />
             </Grid>
           </Grid>
         </Box>

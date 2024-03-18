@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import { Grid, Box, Chip } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 
-export default function TimePicker() {
+export default function TimePicker({ handleClipClick }) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -35,7 +35,11 @@ export default function TimePicker() {
             {chipdata.morning.map((data) => {
               return (
                 <Grid item>
-                  <Chip clickable label={data.label} />
+                  <Chip
+                    onClick={() => handleClipClick(data.label)}
+                    clickable
+                    label={data.label}
+                  />
                 </Grid>
               );
             })}
@@ -55,7 +59,11 @@ export default function TimePicker() {
             {chipdata.afternoon.map((data) => {
               return (
                 <Grid item>
-                  <Chip clickable label={data.label} />
+                  <Chip
+                    onClick={() => handleClipClick(data.label)}
+                    clickable
+                    label={data.label}
+                  />
                 </Grid>
               );
             })}
@@ -75,7 +83,11 @@ export default function TimePicker() {
             {chipdata.dinner.map((data) => {
               return (
                 <Grid item>
-                  <Chip clickable label={data.label} />
+                  <Chip
+                    onClick={() => handleClipClick(data.label)}
+                    clickable
+                    label={data.label}
+                  />
                 </Grid>
               );
             })}
