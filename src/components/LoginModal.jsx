@@ -4,16 +4,26 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState } from "react";
-import { postLogin } from "../api";
+import { useEffect, useState } from "react";
+import { postLogin, postResgistration } from "../api";
 
-export const LoginModal = ({ open = 0, handleClose }) => {
+export const LoginModal = ({
+  open = 0,
+  handleClose,
+  setIsLoggedIn = () => {},
+}) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
     phonenumber: "",
     confirmpassword: "",
+    username: "",
   });
+
+  const handleUserLogin = () => {
+    localStorage.setItem("login", "true");
+    setIsLoggedIn(true);
+  };
 
   return (
     <Dialog
@@ -21,36 +31,49 @@ export const LoginModal = ({ open = 0, handleClose }) => {
       onClose={handleClose}
       PaperProps={{
         component: "form",
-        onSubmit: (event) => {
+        onSubmit: async (event) => {
           event.preventDefault();
           const formData = new FormData(event.currentTarget);
           const formJson = Object.fromEntries(formData.entries());
           const email = formJson.email;
           console.log(formValue);
           handleClose();
-          postLogin(formValue);
+
+          if (open === 1) {
+            const res = await postResgistration(formValue);
+            if (res.status === 200) {
+              handleUserLogin();
+            }
+          } else if (open === 2) {
+            const res = await postLogin(formValue);
+            if (res.status === 200) {
+              handleUserLogin();
+            }
+          }
         },
       }}
     >
       <DialogTitle>{open === 1 ? `Register` : `Login`}</DialogTitle>
       <DialogContent>
+        {/* login fields */}
         <TextField
           onChange={(e) => {
             setFormValue({
               ...formValue,
-              email: e.target.value,
+              username: e.target.value,
             });
           }}
           autoFocus
           required
           margin="dense"
-          id="name"
-          name="email"
-          label="Email Address"
-          type="email"
+          id="username"
+          name="username"
+          label="Username"
+          type="text"
           fullWidth
           variant="standard"
         />
+
         <TextField
           onChange={(e) => {
             setFormValue({
@@ -68,8 +91,26 @@ export const LoginModal = ({ open = 0, handleClose }) => {
           fullWidth
           variant="standard"
         />
+        {/* resgistration fields */}
         {open === 1 && (
           <>
+            <TextField
+              onChange={(e) => {
+                setFormValue({
+                  ...formValue,
+                  email: e.target.value,
+                });
+              }}
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              name="email"
+              label="Email Address"
+              type="email"
+              fullWidth
+              variant="standard"
+            />
             <TextField
               onChange={(e) => {
                 setFormValue({

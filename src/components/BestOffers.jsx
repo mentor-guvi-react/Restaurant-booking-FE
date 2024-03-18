@@ -2,7 +2,6 @@ import Grid from "@mui/material/Grid";
 import Cards from "./Cards";
 import { Typography } from "@mui/material";
 
-import axios from "axios";
 import { useEffect } from "react";
 
 export const BestOffers = () => {
@@ -13,11 +12,7 @@ export const BestOffers = () => {
     "https://im1.dineout.co.in/images/uploads/misc/2020/Nov/20/15offid.png?tr=tr:n-small",
   ];
 
-  useEffect(() => {
-    axios.get("http://localhost:4000/").then((res) => {
-      console.log("res", res);
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

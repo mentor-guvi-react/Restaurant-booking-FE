@@ -8,6 +8,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
 import { LoginModal } from "./LoginModal";
+
+import { Link } from "react-router-dom";
+
 export const NavBar = () => {
   const [open, setOpen] = React.useState(0);
 
@@ -20,6 +23,12 @@ export const NavBar = () => {
   }, []);
 
   const handleClickOpen = (type) => {
+    if (isLoggedIn && type === 2) {
+      localStorage.setItem("login", "");
+      setIsLoggedIn(false);
+      window.location.reload();
+      return;
+    }
     setOpen(type);
   };
 
@@ -62,9 +71,10 @@ export const NavBar = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="text" color="inherit">
+              <Link to="/booking-page">
+                {/* <Button variant="text" color="inherit" onClick={}> */}
                 Book A table
-              </Button>
+              </Link>
             </Grid>
             <Grid item>
               <Button variant="text" color="inherit">
@@ -98,7 +108,11 @@ export const NavBar = () => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <LoginModal handleClose={handleClose} open={open} />
+      <LoginModal
+        setIsLoggedIn={setIsLoggedIn}
+        handleClose={handleClose}
+        open={open}
+      />
     </>
   );
 };
