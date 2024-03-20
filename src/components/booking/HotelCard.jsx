@@ -14,7 +14,14 @@ export default function HotelCard({ handleClick, location }) {
     : restaurant.delhi;
 
   return (
-    <Grid paddingTop={"2%"} container lg={12} rowGap={2} flexDirection={"row"}>
+    <Grid
+      style={{ cursor: "pointer" }}
+      paddingTop={"2%"}
+      container
+      lg={12}
+      rowGap={2}
+      flexDirection={"row"}
+    >
       {restaurantData?.map((eachRestaurant) => (
         <Grid
           item

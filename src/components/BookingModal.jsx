@@ -3,7 +3,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useEffect, useState } from "react";
 import { cancelBooking, postLogin, postResgistration } from "../api";
-import StyledButton from "./StyledButton";
+import { ButtonHover } from "./StyledButton";
 
 import * as React from "react";
 import Table from "@mui/material/Table";
@@ -86,10 +86,10 @@ export const BookingModal = ({ open = 0, handleClose, setshowSnack }) => {
                     <TableCell align="right">{row.selectedSeat}</TableCell>
                     <TableCell align="right">{row.time}</TableCell>
                     <TableCell align="right">
-                      <StyledButton
+                      <ButtonHover
                         onClick={(event) => handleCancel(event, row._id)}
                         text={"Cancel"}
-                      ></StyledButton>
+                      ></ButtonHover>
                     </TableCell>
                   </TableRow>
                 ))}

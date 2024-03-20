@@ -5,7 +5,7 @@ import Filter from "./Filter";
 import BreadCrumbs from "./BreadCrumbs";
 import HotelDetails from "./HotelDetails";
 import { useNavigate } from "react-router-dom";
-import StyledButton from "../StyledButton";
+import { ButtonHover } from "../StyledButton";
 import { useParams } from "react-router-dom";
 import { SUPPORTED_LOCATIONS } from "../utils";
 
@@ -19,25 +19,25 @@ const Header = () => {
       columnSpacing={4}
     >
       <Grid item>
-        <StyledButton
+        <ButtonHover
           text={"Home"}
           onClick={() => {
             navigate("/home");
           }}
           size="large"
-        ></StyledButton>
+        ></ButtonHover>
       </Grid>
       <Grid item>
-        <StyledButton
+        <ButtonHover
           size="large"
           text={"Book A table"}
           onClick={() => {
             navigate("/booking-page");
           }}
-        ></StyledButton>
+        ></ButtonHover>
       </Grid>
       <Grid item>
-        <StyledButton text={"Blog"} size="large"></StyledButton>
+        <ButtonHover text={"Blog"} size="large"></ButtonHover>
       </Grid>
     </Grid>
   );
