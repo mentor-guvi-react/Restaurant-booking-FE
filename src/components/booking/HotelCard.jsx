@@ -8,10 +8,23 @@ import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
 import { SUPPORTED_LOCATIONS, restaurant } from "../utils";
 
-export default function HotelCard({ handleClick, location }) {
-  const restaurantData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
+export default function HotelCard({ handleClick, location, checkedFilters }) {
+  let restaurantData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
     ? restaurant[location.toLowerCase()]
     : restaurant.delhi;
+
+  if (checkedFilters.length) {
+    restaurantData = restaurantData.filter((ele) => {
+      let matchFound = true;
+      ele.tags.forEach((tag) => {
+        if (checkedFilters.includes(tag)) {
+          matchFound = false;
+          return matchFound;
+        }
+      });
+      return !matchFound;
+    });
+  }
 
   return (
     <Grid

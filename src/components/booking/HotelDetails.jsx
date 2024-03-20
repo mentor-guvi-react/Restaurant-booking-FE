@@ -3,7 +3,7 @@ import HotelCard from "./HotelCard";
 import ConfirmBooking from "./ConfirmBooking";
 import * as React from "react";
 
-export default function HotelDetails({ location }) {
+export default function HotelDetails({ location, checkedFilters }) {
   const [open, setOpen] = React.useState(false);
   const [restaurantId, setRestaurantId] = React.useState("");
 
@@ -15,7 +15,12 @@ export default function HotelDetails({ location }) {
   return (
     <>
       <HeaderText location={location} />
-      <HotelCard location={location} handleClick={handleClick} open={open} />
+      <HotelCard
+        checkedFilters={checkedFilters}
+        location={location}
+        handleClick={handleClick}
+        open={open}
+      />
       <ConfirmBooking
         restaurantId={restaurantId}
         handleClick={handleClick}

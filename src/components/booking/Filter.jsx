@@ -12,10 +12,9 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-export default function Filter() {
-  const [checkedFilters, setCheckedFilters] = React.useState([]);
+import { tagsFilter, quickFilter, cuisniesFilter } from "../utils";
 
-  console.log(checkedFilters, "checkedFilters");
+export default function Filter({ setCheckedFilters, checkedFilters }) {
   return (
     <div>
       <Accordion>
@@ -124,80 +123,3 @@ export default function Filter() {
     </div>
   );
 }
-
-const quickFilter = [
-  `5 Star`,
-  `Buffet`,
-  `Chinese`,
-  `Dineout Pay`,
-  `Happy Hours`,
-  `Italian`,
-  `North Indian`,
-  ` Pure Veg`,
-];
-
-const cuisniesFilter = [
-  `American`,
-  `Bengali`,
-  `Cantonese`,
-  `European`,
-  `Greek`,
-  `Beverages`,
-  `Chettinad`,
-  `Gujarati`,
-  `Japanese`,
-  `Malaysian`,
-  `Moroccan`,
-  `Arabian`,
-  `Bihari`,
-  `Chinese`,
-  `Finger Food`,
-  `Health Food`,
-  `Kashmiri`,
-  `Mangalorean`,
-  `Mughlai`,
-  `Asian`,
-  `Biryani`,
-  `Continental`,
-  `French`,
-  `Hyderabadi`,
-  `Kerala`,
-  `Mediterranean`,
-  `Naga`,
-  `Assamese`,
-  `Burger`,
-  `Desserts`,
-  `Fusion`,
-  `Indonesian`,
-  `Korean`,
-  `Mexican`,
-  `Nepalese`,
-  `Awadhi`,
-  `Burmese`,
-  `Ethiopian`,
-  `Goan`,
-  `Iranian`,
-  `Lebanese`,
-  `North Eastern`,
-];
-
-const tagsFilter = [
-  `1 plus 1 on Food and Drinks`,
-  `Barbeque Nation Super Savers`,
-  `Best Buffet`,
-  `5 Star`,
-  `Bars`,
-  `Best Buffets`,
-  `Andaz Delhi`,
-  `Best All Day Dining`,
-  `Best Buffets and Thaalis`,
-  `BBQ Special`,
-  `Best Bars`,
-  `Best Burgers`,
-  `Bakery`,
-  `Best Bars and Pubs`,
-  `Best Cafes`,
-  `Bar`,
-  `Best Budget Friendly Restaurants`,
-  `Best Cafes to Chill`,
-];

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ButtonHover } from "../StyledButton";
 import { useParams } from "react-router-dom";
 import { SUPPORTED_LOCATIONS } from "../utils";
+import { useState } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -46,6 +47,8 @@ const Header = () => {
 export const BookingLayout = () => {
   const { location = "" } = useParams();
 
+  const [checkedFilters, setCheckedFilters] = useState([]);
+
   const locationData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
     ? location
     : SUPPORTED_LOCATIONS[0];
@@ -57,12 +60,18 @@ export const BookingLayout = () => {
 
       <Grid container paddingTop={"2%"}>
         <Grid item paddingLeft={"3%"} lg={3}>
-          <Filter />
+          <Filter
+            checkedFilters={checkedFilters}
+            setCheckedFilters={setCheckedFilters}
+          />
         </Grid>
 
         <Grid item paddingLeft={"2%"} width={"72%"}>
           <BreadCrumbs location={locationData} />
-          <HotelDetails location={locationData} />
+          <HotelDetails
+            location={locationData}
+            checkedFilters={checkedFilters}
+          />
         </Grid>
       </Grid>
     </Grid>
