@@ -4,7 +4,11 @@ import Tab from "@mui/material/Tab";
 import { Grid, Box, Chip } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 
-export default function TimePicker({ handleClipClick, selectedTime }) {
+export default function TimePicker({
+  handleClipClick,
+  selectedTime,
+  bookedTimeSlots,
+}) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -48,6 +52,7 @@ export default function TimePicker({ handleClipClick, selectedTime }) {
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}
+                    disabled={!!bookedTimeSlots.includes(data.label)}
                   />
                 </Grid>
               );
@@ -73,6 +78,7 @@ export default function TimePicker({ handleClipClick, selectedTime }) {
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}
+                    disabled={!!bookedTimeSlots.includes(data.label)}
                   />
                 </Grid>
               );
@@ -98,6 +104,7 @@ export default function TimePicker({ handleClipClick, selectedTime }) {
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}
+                    disabled={!!bookedTimeSlots.includes(data.label)}
                   />
                 </Grid>
               );

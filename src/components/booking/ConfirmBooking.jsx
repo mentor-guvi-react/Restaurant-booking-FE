@@ -11,29 +11,34 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import TimePicker from "./TimePicker";
 import StyledButton from "../StyledButton";
-import { createBooking } from "../../api";
+import { createBooking, fetchRestaurentSlots } from "../../api";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
 import Fade from "@mui/material/Fade";
+
+const defaultFormState = {
+  restaurantId: "",
+  selectedSeat: 0,
+  selectedDate: "",
+  time: "",
+};
 
 export default function ConfirmBooking({
   handleClick,
   open,
   restaurantId = "",
 }) {
-  const [formValue, setFormValue] = React.useState({
-    restaurantId: restaurantId,
-    selectedSeat: 2,
-    selectedDate: "22-3-2024",
-    time: "12 PM - 1 PM",
-  });
+  const [formValue, setFormValue] = React.useState(defaultFormState);
 
   const [state, setState] = React.useState({
     open: false,
     Transition: Fade,
     bookingId: "",
+    bookedTimeSlots: [],
   });
+
+  console.log(state.bookedTimeSlots, "bookedTimeSlots");
 
   const handleClose = () => {
     setState({
@@ -42,12 +47,22 @@ export default function ConfirmBooking({
     });
   };
 
-  const handleDateChange = (value) => {
+  const handleDateChange = async (value) => {
     const date = new Date(value).getDate();
     const year = new Date(value).getFullYear();
     const month = new Date(value).getMonth() + 1;
 
     const localData = `${date}-${month}-${year}`;
+
+    const res = await fetchRestaurentSlots({
+      restaurantId,
+      selectedDate: localData,
+    });
+
+    setState({
+      ...state,
+      bookedTimeSlots: res.data?.map((e) => e.time),
+    });
 
     setFormValue({
       ...formValue,
@@ -86,12 +101,17 @@ export default function ConfirmBooking({
     });
   };
 
+  const handleModelClose = () => {
+    handleClick();
+    setFormValue(defaultFormState);
+  };
+
   return (
     <>
       <Modal
         style={{ padding: 0 }}
         open={open}
-        onClose={handleClick}
+        onClose={handleModelClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -159,6 +179,7 @@ export default function ConfirmBooking({
             <TimePicker
               selectedTime={formValue.time}
               handleClipClick={handleClipClick}
+              bookedTimeSlots={state.bookedTimeSlots}
             />
 
             <Grid item paddingTop={"5%"}>
