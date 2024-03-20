@@ -39,3 +39,21 @@ export const createBooking = ({
     userId,
   });
 };
+
+export const fetchRestaurentSlots = ({
+  restaurantId = "",
+  selectedDate = "",
+}) => {
+  return axios.post(baseUrlLocal + "/restaurent-slot", {
+    restaurantId,
+    selectedDate,
+  });
+};
+
+export const getBookingsForUserId = ({ userId = "" }) => {
+  return axios.get(baseUrlLocal + "/getBookings/" + userId);
+};
+
+export const cancelBooking = (bookingId) => {
+  return axios.get(baseUrlLocal + "/cancelBooking/" + bookingId);
+};

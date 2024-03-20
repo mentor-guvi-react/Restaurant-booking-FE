@@ -7,13 +7,15 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Grid from "@mui/material/Grid";
 import { LoginModal } from "./LoginModal";
+import { BookingModal } from "./BookingModal";
 import SearchBox from "./SearchBox";
 import { useNavigate } from "react-router-dom";
 import { locations } from "./utils";
+import CustomizedSnackbars from "./booking/SnackBar";
 
 export const NavBar = ({ type = 0 }) => {
   const [open, setOpen] = React.useState(0);
-  const [searchedLocation, setSearchedLocation] = React.useState("delhi");
+  const [showSnack, setshowSnack] = React.useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -63,7 +65,7 @@ export const NavBar = ({ type = 0 }) => {
                     sx={{ width: 300 }}
                     onChange={(e) => {
                       const searchedLocation = e.target.innerText;
-                      setSearchedLocation(searchedLocation);
+                      // setSearchedLocation(searchedLocation);
                       searchedLocation?.length &&
                         navigate("/booking-page/" + searchedLocation);
                     }}
@@ -111,6 +113,21 @@ export const NavBar = ({ type = 0 }) => {
               )}
             </Grid>
 
+            {isLoggedIn && (
+              <Grid item>
+                <Grid justifySelf={"flex-end"} container spacing={2}>
+                  <Grid item>
+                    <StyledButton
+                      onClick={() => handleClickOpen(3)}
+                      variant="contained"
+                      color="inherit"
+                      text={"Booked History"}
+                    ></StyledButton>
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
+
             <Grid item>
               <Grid justifySelf={"flex-end"} container spacing={2}>
                 <Grid item>
@@ -138,11 +155,29 @@ export const NavBar = ({ type = 0 }) => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <LoginModal
-        setIsLoggedIn={setIsLoggedIn}
-        handleClose={handleClose}
-        open={open}
-      />
+      {open === 3 ? (
+        <BookingModal
+          setshowSnack={setshowSnack}
+          handleClose={handleClose}
+          open={open}
+        />
+      ) : (
+        <LoginModal
+          setIsLoggedIn={setIsLoggedIn}
+          handleClose={handleClose}
+          open={open}
+        />
+      )}
+
+      {showSnack && (
+        <>
+          <CustomizedSnackbars
+            isOpen={showSnack}
+            text={`Booking is cancelled`}
+            type={"error"}
+          />
+        </>
+      )}
     </>
   );
 };

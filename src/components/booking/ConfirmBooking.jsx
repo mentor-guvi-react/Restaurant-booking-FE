@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Box, Grid, Slider, TextField } from "@mui/material";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
@@ -12,10 +11,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TimePicker from "./TimePicker";
 import StyledButton from "../StyledButton";
 import { createBooking, fetchRestaurentSlots } from "../../api";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 
-import Fade from "@mui/material/Fade";
+import CustomizedSnackbars from "./SnackBar";
 
 const defaultFormState = {
   restaurantId: "",
@@ -33,19 +30,11 @@ export default function ConfirmBooking({
 
   const [state, setState] = React.useState({
     open: false,
-    Transition: Fade,
     bookingId: "",
     bookedTimeSlots: [],
   });
 
   console.log(state.bookedTimeSlots, "bookedTimeSlots");
-
-  const handleClose = () => {
-    setState({
-      ...state,
-      open: false,
-    });
-  };
 
   const handleDateChange = async (value) => {
     const date = new Date(value).getDate();
@@ -189,22 +178,11 @@ export default function ConfirmBooking({
         </Box>
       </Modal>
       <>
-        <Snackbar
-          open={state.open}
-          onClose={handleClose}
-          TransitionComponent={state.Transition}
-          key={state.Transition.name}
-          autoHideDuration={1200}
-        >
-          <Alert
-            onClose={handleClose}
-            severity="success"
-            variant="filled"
-            sx={{ width: "100%" }}
-          >
-            Booking Created Success with id {state.bookingId}
-          </Alert>
-        </Snackbar>
+        <CustomizedSnackbars
+          isOpen={state.open}
+          text={`Booking Created Success with id ${state.bookingId}`}
+          type={"success"}
+        />
       </>
     </>
   );
