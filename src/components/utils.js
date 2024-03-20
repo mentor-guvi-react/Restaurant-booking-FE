@@ -571,3 +571,11 @@ export const tagsFilter = [
   `Best Budget Friendly Restaurants`,
   `Best Cafes to Chill`,
 ];
+
+
+
+export const sortFilter = [
+  `Rating`,
+  `Price: Low to High`,
+  `Price: High to Low`,
+];

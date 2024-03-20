@@ -1,16 +1,8 @@
-import {
-  Grid,
-  Button,
-  Typography,
-  MenuItem,
-  Select,
-  FormControl,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import { Grid, Typography, MenuItem, Select, FormControl } from "@mui/material";
 
-export default function HeaderText({location}) {
-  const [sort, setSort] = useState("Rating");
+import { sortFilter } from "../utils";
 
+export default function HeaderText({ sort, location, setSort }) {
   const handleChange = (event) => {
     setSort(event.target.value);
   };
@@ -63,10 +55,3 @@ export default function HeaderText({location}) {
     </Grid>
   );
 }
-
-const sortFilter = [
-  `Rating`,
-  `Popularity`,
-  `Price: Low to High`,
-  `Price: High to Low`,
-];

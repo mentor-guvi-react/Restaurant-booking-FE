@@ -8,7 +8,12 @@ import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
 import { SUPPORTED_LOCATIONS, restaurant } from "../utils";
 
-export default function HotelCard({ handleClick, location, checkedFilters }) {
+export default function HotelCard({
+  handleClick,
+  location,
+  checkedFilters,
+  sort,
+}) {
   let restaurantData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
     ? restaurant[location.toLowerCase()]
     : restaurant.delhi;
@@ -24,6 +29,24 @@ export default function HotelCard({ handleClick, location, checkedFilters }) {
       });
       return !matchFound;
     });
+  }
+
+  const callback = (one, two, type, isReverse = false) => {
+    const firstRating = Number(one[type]);
+    const twoRating = Number(two[type]);
+
+    if (firstRating > twoRating) return isReverse ? -1 : 1;
+    if (firstRating < twoRating) return isReverse ? 1 : -1;
+  };
+
+  if (sort) {
+    if (sort === "Rating") {
+      restaurantData.sort((a, b) => callback(a, b, "ratings"));
+    } else if (sort === "Price: Low to High") {
+      restaurantData.sort((a, b) => callback(a, b, "price"));
+    } else if (sort === "Price: High to Low") {
+      restaurantData.sort((a, b) => callback(a, b, "price", true));
+    }
   }
 
   return (
