@@ -6,41 +6,49 @@ import BreadCrumbs from "./BreadCrumbs";
 import HotelDetails from "./HotelDetails";
 import { useNavigate } from "react-router-dom";
 import StyledButton from "../StyledButton";
+import { useParams } from "react-router-dom";
+import { SUPPORTED_LOCATIONS } from "../utils";
+
+const Header = () => {
+  const navigate = useNavigate();
+  return (
+    <Grid
+      container
+      justifyContent={"center"}
+      className={styles.headerclass}
+      columnSpacing={4}
+    >
+      <Grid item>
+        <StyledButton
+          text={"Home"}
+          onClick={() => {
+            navigate("/home");
+          }}
+          size="large"
+        ></StyledButton>
+      </Grid>
+      <Grid item>
+        <StyledButton
+          size="large"
+          text={"Book A table"}
+          onClick={() => {
+            navigate("/booking-page");
+          }}
+        ></StyledButton>
+      </Grid>
+      <Grid item>
+        <StyledButton text={"Blog"} size="large"></StyledButton>
+      </Grid>
+    </Grid>
+  );
+};
 
 export const BookingLayout = () => {
-  const Header = () => {
-    const navigate = useNavigate();
-    return (
-      <Grid
-        container
-        justifyContent={"center"}
-        className={styles.headerclass}
-        columnSpacing={4}
-      >
-        <Grid item>
-          <StyledButton
-            text={"Home"}
-            onClick={() => {
-              navigate("/home");
-            }}
-            size="large"
-          ></StyledButton>
-        </Grid>
-        <Grid item>
-          <StyledButton
-            size="large"
-            text={"Book A table"}
-            onClick={() => {
-              navigate("/booking-page");
-            }}
-          ></StyledButton>
-        </Grid>
-        <Grid item>
-          <StyledButton text={"Blog"} size="large"></StyledButton>
-        </Grid>
-      </Grid>
-    );
-  };
+  const { location = "" } = useParams();
+
+  const locationData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
+    ? location
+    : SUPPORTED_LOCATIONS[0];
 
   return (
     <Grid container lg={12} width={"100%"}>
@@ -53,8 +61,8 @@ export const BookingLayout = () => {
         </Grid>
 
         <Grid item paddingLeft={"2%"} width={"72%"}>
-          <BreadCrumbs />
-          <HotelDetails />
+          <BreadCrumbs location={locationData} />
+          <HotelDetails location={locationData} />
         </Grid>
       </Grid>
     </Grid>

@@ -9,9 +9,11 @@ import Grid from "@mui/material/Grid";
 import { LoginModal } from "./LoginModal";
 import SearchBox from "./SearchBox";
 import { useNavigate } from "react-router-dom";
+import { locations } from "./utils";
 
 export const NavBar = ({ type = 0 }) => {
   const [open, setOpen] = React.useState(0);
+  const [searchedLocation, setSearchedLocation] = React.useState("delhi");
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
@@ -43,7 +45,7 @@ export const NavBar = ({ type = 0 }) => {
         <Toolbar>
           <Grid
             container
-            spacing={4}
+            spacing={8}
             justifyContent={"center"}
             alignItems={"center"}
           >
@@ -59,6 +61,12 @@ export const NavBar = ({ type = 0 }) => {
                     id="combo-box-demo"
                     options={locations}
                     sx={{ width: 300 }}
+                    onChange={(e) => {
+                      const searchedLocation = e.target.innerText;
+                      setSearchedLocation(searchedLocation);
+                      searchedLocation?.length &&
+                        navigate("/booking-page/" + searchedLocation);
+                    }}
                     renderInput={(params) => (
                       <TextField {...params} label="Restaurants" />
                     )}
@@ -138,10 +146,3 @@ export const NavBar = ({ type = 0 }) => {
     </>
   );
 };
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const locations = [
-  { label: "Delhi", id: 1994 },
-  { label: "Chennai", year: 8923 },
-  { label: "Mumbai", year: 3456 },
-];

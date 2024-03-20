@@ -8,9 +8,14 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/booking-page" element={<BookingLayout />}></Route>
+          <Route path="/booking-page/">
+            <Route index element={<BookingLayout />} />
+            <Route exact path=":location" element={<BookingLayout />} />
+            <Route path="*" element={<BookingLayout />} />
+          </Route>
           <Route path="/home" element={<Layout />}></Route>
           <Route path="/" element={<Layout />}></Route>
+          <Route path="*" element={<Layout />} />
         </Routes>
       </BrowserRouter>
     </div>

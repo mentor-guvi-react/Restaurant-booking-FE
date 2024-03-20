@@ -23,7 +23,8 @@ export const LoginModal = ({
 
   const handleUserLogin = (res = {}) => {
     localStorage.setItem("login", "true");
-    res.username && localStorage.setItem("userId", res.username || "");
+    res.data.username &&
+      localStorage.setItem("userId", res.data.username || "");
     setIsLoggedIn(true);
   };
 

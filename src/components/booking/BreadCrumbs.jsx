@@ -10,7 +10,7 @@ function handleClick(event) {
   console.info("You clicked a breadcrumb.");
 }
 
-export default function BreadCrumbs() {
+export default function BreadCrumbs({ location }) {
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -28,10 +28,10 @@ export default function BreadCrumbs() {
       href="/material-ui/getting-started/installation/"
       onClick={handleClick}
     >
-      Delhi
+      {location}
     </Link>,
     <Typography key="3" color="text.primary">
-      Delhi Restaurents
+      {location} Restaurents
     </Typography>,
   ];
 

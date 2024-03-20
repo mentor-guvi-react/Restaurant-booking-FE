@@ -6,16 +6,21 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ShareIcon from "@mui/icons-material/Share";
+import { SUPPORTED_LOCATIONS, restaurant } from "../utils";
 
-export default function HotelCard({ handleClick }) {
+export default function HotelCard({ handleClick, location }) {
+  const restaurantData = SUPPORTED_LOCATIONS.includes(location.toLowerCase())
+    ? restaurant[location.toLowerCase()]
+    : restaurant.delhi;
+
   return (
     <Grid paddingTop={"2%"} container lg={12} rowGap={2} flexDirection={"row"}>
-      {[1, 2, 3, 4, 5, 6].map((e) => (
+      {restaurantData?.map((eachRestaurant) => (
         <Grid
           item
           lg={4}
-          onClick={(e) => {
-            handleClick();
+          onClick={() => {
+            handleClick(eachRestaurant.id);
           }}
         >
           <Card sx={{ maxWidth: 345 }}>
@@ -23,7 +28,7 @@ export default function HotelCard({ handleClick }) {
               <CardMedia
                 component="img"
                 height="194"
-                image="https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/d/m/p133271-170455034765995fcb87ba1.jpg?tr=tr:n-medium"
+                image={eachRestaurant.image}
                 alt="Paella dish"
               ></CardMedia>
               <div
@@ -37,10 +42,10 @@ export default function HotelCard({ handleClick }) {
                 }}
               >
                 <Typography fontSize={18} color="white" variant="body2">
-                  4.5
+                  {eachRestaurant.ratings}
                 </Typography>
               </div>
-              <div
+              {/* <div
                 style={{
                   position: "absolute",
                   top: 35,
@@ -52,25 +57,26 @@ export default function HotelCard({ handleClick }) {
                 <IconButton aria-label="share">
                   <ShareIcon />
                 </IconButton>
-              </div>
+              </div> */}
             </div>
             <CardContent>
               <Typography textAlign={"left"} variant="h5">
-                Delia My Bar Headquarters
+                {eachRestaurant.name}
               </Typography>
               <Typography
                 textAlign={"left"}
                 variant="body2"
                 color="text.secondary"
               >
-                Karol Bagh , Central Delhi
+                {eachRestaurant.location}
               </Typography>
               <Typography
                 textAlign={"left"}
                 variant="body2"
                 color="text.secondary"
               >
-                ₹ 1,600 for 2 approx | American, Bengali, 5 Star, Buffet,
+                {eachRestaurant.priceDetail} | |{" "}
+                {eachRestaurant?.tags?.map((e) => ` ${e}`)}
               </Typography>
             </CardContent>
           </Card>
@@ -79,21 +85,3 @@ export default function HotelCard({ handleClick }) {
     </Grid>
   );
 }
-
-const restaurant = {
-  delhi: [
-    {
-      id: "sdkjnbfsd09234234",
-      name: "Delia My Bar Headquarters",
-      location: "Karol Bagh , Central Delhi",
-      price: "162312",
-      priceDetail: "₹ 1,600 for 2 approx",
-      tags: [`American`, `Bengali`, `5 Star`, `Buffet`],
-      ratings: 5.5,
-      image: "",
-      discount: 30,
-    },
-  ],
-  mumbai: {},
-  chennai: {},
-};

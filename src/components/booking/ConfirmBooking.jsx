@@ -11,6 +11,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import TimePicker from "./TimePicker";
 import StyledButton from "../StyledButton";
+import { createBooking } from "../../api";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+
+import Fade from "@mui/material/Fade";
 
 export default function ConfirmBooking({
   handleClick,
@@ -19,10 +24,23 @@ export default function ConfirmBooking({
 }) {
   const [formValue, setFormValue] = React.useState({
     restaurantId: restaurantId,
-    selectedSeat: 0,
-    selectedDate: "",
-    time: "",
+    selectedSeat: 2,
+    selectedDate: "22-3-2024",
+    time: "12 PM - 1 PM",
   });
+
+  const [state, setState] = React.useState({
+    open: false,
+    Transition: Fade,
+    bookingId: "",
+  });
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
 
   const handleDateChange = (value) => {
     const date = new Date(value).getDate();
@@ -37,8 +55,21 @@ export default function ConfirmBooking({
     });
   };
 
-  const handleSubmit = () => {
-    console.log(formValue, "formValue formValue");
+  const handleSubmit = async () => {
+    const userId = localStorage.getItem("userId");
+
+    if (userId) {
+      const res = await createBooking({ ...formValue, restaurantId, userId });
+      console.log(res);
+
+      if (res?.data?._id) {
+        setState({
+          ...state,
+          open: true,
+          bookingId: res?.data?._id,
+        });
+      }
+    }
   };
 
   const handleSliderChange = (event) => {
@@ -82,9 +113,12 @@ export default function ConfirmBooking({
             <Typography
               textAlign={"center"}
               id="modal-modal-description"
-              sx={{ mt: 2 }}
+              variant="h6"
+              fontWeight={900}
             >
-              Select Seats
+              {formValue.selectedSeat
+                ? `${formValue.selectedSeat} Seats Selected`
+                : `Select Seats`}
             </Typography>
             <Box sx={{ width: 300 }}>
               <Slider
@@ -122,7 +156,10 @@ export default function ConfirmBooking({
               </DemoContainer>
             </LocalizationProvider>
 
-            <TimePicker handleClipClick={handleClipClick} />
+            <TimePicker
+              selectedTime={formValue.time}
+              handleClipClick={handleClipClick}
+            />
 
             <Grid item paddingTop={"5%"}>
               <StyledButton onClick={handleSubmit} text={"Create Booking"} />
@@ -130,6 +167,24 @@ export default function ConfirmBooking({
           </Grid>
         </Box>
       </Modal>
+      <>
+        <Snackbar
+          open={state.open}
+          onClose={handleClose}
+          TransitionComponent={state.Transition}
+          key={state.Transition.name}
+          autoHideDuration={1200}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            variant="filled"
+            sx={{ width: "100%" }}
+          >
+            Booking Created Success with id {state.bookingId}
+          </Alert>
+        </Snackbar>
+      </>
     </>
   );
 }

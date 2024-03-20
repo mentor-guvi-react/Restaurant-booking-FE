@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab";
 import { Grid, Box, Chip } from "@mui/material";
 import { TabPanel, TabContext, TabList } from "@mui/lab";
 
-export default function TimePicker({ handleClipClick }) {
+export default function TimePicker({ handleClipClick, selectedTime }) {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -15,13 +15,21 @@ export default function TimePicker({ handleClipClick }) {
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 10,
+            }}
+            onChange={handleChange}
+            aria-label="lab API tabs example"
+          >
             <Tab label="Morning" value="1" />
             <Tab label="Afternoon" value="2" />
             <Tab label="Dinner" value="3" />
           </TabList>
         </Box>
-        <TabPanel value="1">
+        <TabPanel style={{ minHeight: 170 }} value="1">
           <Grid
             display={"flex"}
             flexDirection={"row"}
@@ -36,6 +44,7 @@ export default function TimePicker({ handleClipClick }) {
               return (
                 <Grid item>
                   <Chip
+                    color={selectedTime === data.label ? "success" : "default"}
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}
@@ -45,7 +54,7 @@ export default function TimePicker({ handleClipClick }) {
             })}
           </Grid>
         </TabPanel>
-        <TabPanel value="2">
+        <TabPanel style={{ minHeight: 170 }} value="2">
           <Grid
             display={"flex"}
             flexDirection={"row"}
@@ -60,6 +69,7 @@ export default function TimePicker({ handleClipClick }) {
               return (
                 <Grid item>
                   <Chip
+                    color={selectedTime === data.label ? "success" : "default"}
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}
@@ -69,7 +79,7 @@ export default function TimePicker({ handleClipClick }) {
             })}
           </Grid>
         </TabPanel>
-        <TabPanel value="3">
+        <TabPanel style={{ minHeight: 170 }} value="3">
           <Grid
             display={"flex"}
             flexDirection={"row"}
@@ -84,6 +94,7 @@ export default function TimePicker({ handleClipClick }) {
               return (
                 <Grid item>
                   <Chip
+                    color={selectedTime === data.label ? "success" : "default"}
                     onClick={() => handleClipClick(data.label)}
                     clickable
                     label={data.label}

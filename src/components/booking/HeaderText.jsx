@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-export default function HeaderText() {
+export default function HeaderText({location}) {
   const [sort, setSort] = useState("Rating");
 
   const handleChange = (event) => {
@@ -28,7 +28,7 @@ export default function HeaderText() {
           variant="h5"
           component="h3"
         >
-          Best Restaurants Near Me in Delhi
+          Best Restaurants Near Me in {location}
         </Typography>
       </Grid>
 
