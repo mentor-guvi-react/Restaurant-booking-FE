@@ -4,7 +4,9 @@ Get start
 
 1. Clone the application by running git clone https://github.com/mentor-guvi-react/Restaurant-booking-FE.git or Download the zip folder
 cd into folder and do npm install
-2. npm start should start the react app
+2. npm start should start the react app in local env
+3. npm run start-prod will start the react app to point prod api
+4. Build your react frontend in netlify using cmd CI=false npm run build
 
 UseFull Links
 
